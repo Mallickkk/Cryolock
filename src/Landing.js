@@ -27,7 +27,7 @@ function Landing(props) {
 
       <div className="section">
         <p className="section-tag">01 / WHY CRYOLOCK</p>
-        <h2 className="section-title">Built for teams, DAOs, and solo builders.</h2>
+        <h2 className="section-title">I built CryoLock to simplify how token vesting works without needing deep blockchain knowledge.</h2>
         <div className="grid">
           <div className="card large card-with-image" style={{ backgroundImage: `url(${WATCH_IMG})` }}>
             <div className="card-inner">
