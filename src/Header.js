@@ -8,18 +8,20 @@ export default function Header({ mode, setMode, wallet, setWallet }) {
   const [balance, setBalance] = useState(null);
 
   // Ping backend every 5 seconds
-  useEffect(() => {
-    const check = async () => {
-      try {
-        const r = await fetch("http://localhost:5000/", { signal: AbortSignal.timeout(2000) });
-        setApiOnline(r.ok);
-      } catch { setApiOnline(false); }
-    };
-    check();
-    const t = setInterval(check, 5000);
-    return () => clearInterval(t);
-  }, []);
+useEffect(() => {
+  const check = async () => {
+    try {
+      const r = await fetch("https://cryolock-backend-tyxe.onrender.com/");
+      setApiOnline(r.ok);
+    } catch {
+      setApiOnline(false);
+    }
+  };
 
+  check();
+  const t = setInterval(check, 5000);
+  return () => clearInterval(t);
+}, []);
   // Listen for MetaMask account changes
   useEffect(() => {
     if (!hasMetaMask()) return;
