@@ -6,22 +6,36 @@ import { connectMetaMask, shortAddress, hasMetaMask, getBalance } from "./lib/wa
 export default function Header({ mode, setMode, wallet, setWallet }) {
   const [apiOnline, setApiOnline] = useState(false);
   const [balance, setBalance] = useState(null);
+  const API_BASE = (process.env.REACT_APP_API_URL || "https://cryolock-backend-tyxe.onrender.com").replace(/\/+$/, "");
 
   // Ping backend every 5 seconds
 useEffect(() => {
   const check = async () => {
+    const endpoint = `${API_BASE}/api/stats`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 7000);
     try {
-      const r = await fetch("https://cryolock-backend-tyxe.onrender.com/");
+      // Preferred path: normal CORS request with real HTTP status.
+      const r = await fetch(endpoint, { signal: controller.signal, cache: "no-store" });
       setApiOnline(r.ok);
+      return;
     } catch {
-      setApiOnline(false);
+      // Fallback: if CORS policy blocks readable responses, no-cors still tells us if host is reachable.
+      try {
+        await fetch(endpoint, { mode: "no-cors", signal: controller.signal, cache: "no-store" });
+        setApiOnline(true);
+      } catch {
+        setApiOnline(false);
+      }
+    } finally {
+      clearTimeout(timeout);
     }
   };
 
   check();
   const t = setInterval(check, 5000);
   return () => clearInterval(t);
-}, []);
+}, [API_BASE]);
   // Listen for MetaMask account changes
   useEffect(() => {
     if (!hasMetaMask()) return;
