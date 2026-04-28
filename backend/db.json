@@ -1,0 +1,20 @@
+{
+  "locks": [
+    {
+      "id": "9uf0n7txmohjkkkp",
+      "creator_wallet": "0xdem0cafe000000000000000000000000000000d0",
+      "recipient_wallet": "0xbeefca5e000000000000000000000000000beef1",
+      "token_symbol": "USDC",
+      "amount_total": 5000,
+      "withdrawn_amount": 0,
+      "start_time": "2026-04-27T18:39:43.657Z",
+      "end_time": "2026-04-27T19:09:43.657Z",
+      "unlock_curve": "linear",
+      "status": "active",
+      "mode": "demo",
+      "label": "Team vesting Q1",
+      "created_at": "2026-04-27T18:39:43.657Z"
+    }
+  ],
+  "activity": []
+}
