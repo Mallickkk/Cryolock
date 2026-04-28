@@ -1,12 +1,11 @@
-const cors = require("cors");
-app.use(cors());
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
 const app = express();
-app.use(cors());
+
+app.use(cors());           // ✅ AFTER app is created
 app.use(express.json());
 
 const DB_FILE = path.join(__dirname, "db.json");
